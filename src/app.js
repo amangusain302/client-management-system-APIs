@@ -37,11 +37,7 @@ app.use('/activity', dashboardRoute);
 if(process.env.NODE_ENV != "development"){
     app.use(express.static('../client/build'));
 }
-app.get("/", (req, res) => {
-    res.send({
-        message: "success"
-    })
-})
+
 
 app.listen(port, () => {
     console.log(`connection is setup at ${port}`);
