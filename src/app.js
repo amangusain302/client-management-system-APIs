@@ -40,9 +40,9 @@ app.get("/", (req, res) => {
         message: "success"
     })
 })
-if(process.env.NODE_ENV=="production"){
-    app.use(express.static('../client/build'));
-}
+// if(process.env.NODE_ENV=="production"){
+//     app.use(express.static('../client/build'));
+// }
 app.listen(port, () => {
     console.log(`connection is setup at ${port}`);
 });
