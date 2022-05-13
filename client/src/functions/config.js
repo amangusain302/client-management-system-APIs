@@ -1,2 +1,2 @@
-const apiBase = 'http://192.168.29.173:8000';
+const apiBase = 'https://clientpoint.herokuapp.com';
 export {apiBase};
