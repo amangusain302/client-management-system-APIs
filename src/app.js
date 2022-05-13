@@ -34,15 +34,15 @@ app.use('/invoice', invoiceRoute);
 app.use('/user', usersRoute);
 app.use('/proposal', proposalRoute);
 app.use('/activity', dashboardRoute);
-
+if(process.env.NODE_ENV != "development"){
+    app.use(express.static('../client/build'));
+}
 app.get("/", (req, res) => {
     res.send({
         message: "success"
     })
 })
-// if(process.env.NODE_ENV=="production"){
-//     app.use(express.static('../client/build'));
-// }
+
 app.listen(port, () => {
     console.log(`connection is setup at ${port}`);
 });
