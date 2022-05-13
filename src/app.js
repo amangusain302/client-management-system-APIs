@@ -34,8 +34,8 @@ app.use('/invoice', invoiceRoute);
 app.use('/user', usersRoute);
 app.use('/proposal', proposalRoute);
 app.use('/activity', dashboardRoute);
-if(process.env.NODE_ENV != "development"){
-    app.use(express.static('../client/build'));
+if(process.env.NODE_ENV !== "development"){
+    app.use(express.static('public'));
 }
 
 
