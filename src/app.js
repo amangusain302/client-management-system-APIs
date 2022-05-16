@@ -1,6 +1,7 @@
 //package import
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const req = require('express/lib/request');
 // const router = require('./router/user-route');
 require("./db/conn");
@@ -12,6 +13,8 @@ const proposalRoute = require('./router/proposal-route');
 const invoiceRoute = require('./router/invoice-route');
 const SendEmailRoute = require('./router/emailSend-route');
 const dashboardRoute = require('./router/dashboard-route');
+const res = require('express/lib/response');
+const { join } = require('path');
 
 //init
 
@@ -37,7 +40,9 @@ app.use('/activity', dashboardRoute);
 if(process.env.NODE_ENV !== "development"){
     app.use(express.static('public'));
 }
-
+app.get('/*',(req,response)=>{
+    response.sendFile(path.join(__dirname,'../client/build','index.html'))
+})
 
 app.listen(port, () => {
     console.log(`connection is setup at ${port}`);

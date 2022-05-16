@@ -101,14 +101,14 @@ const emailNodemailer = async(to, subject, id) => {
         requireTLS: true,
         auth: {
             user: "gamingera786@gmail.com",
-            pass: "9968185116"
+            pass: "ulyzgvnshdigtukl"
         }
     });
     var mailOptions = {
         from: 'gamingera786@gmail.com',
         to: to,
         subject: subject,
-        html: `<h1>demo data<h1><a href="http://192.168.29.153:3000/client/${id}"> click here</a>`
+        html: `<h1>demo data<h1><a href="https://client-point.herokuapp.com/client/${id}"> click here</a>`
     }
 
     let data = await transporter.sendMail(mailOptions);
