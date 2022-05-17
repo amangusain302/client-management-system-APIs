@@ -1,9 +1,7 @@
 {
   "scripts": {
-    "start": "node ./src/app.js",
-    // "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    // "client-install": "cd client && npm install",
-    // "client-build": "cd client && npm run build"
+    "start": "node ./src/app.js"
+    
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
