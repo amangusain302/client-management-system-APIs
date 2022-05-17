@@ -38,7 +38,7 @@ async function generatePdf(invoice_no) {
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage()
-        
+
         // We set the page content as the generatede html by handlebars
         let content_log = await page.setContent(html)
         console.log(content_log,'html  content logs');
@@ -54,6 +54,7 @@ async function generatePdf(invoice_no) {
             }
         });
         console.log("PDF Generated")
+        console.log(pdf_log,'pdf creation logs');
         // return { status: true, message: "pdf Created", };
         data.status = true;
         data.message = "created";
