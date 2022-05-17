@@ -41,15 +41,15 @@ async function generatePdf(invoice_no) {
         // We set the page content as the generatede html by handlebars
         await page.setContent(html)
         // We use pdf function to generate the pdf in the same folder as this file.
-        await page.pdf({ path: 'invoices/invoice.pdf', format: 'A4', printBackground: true })
+        await page.pdf({ path: 'invoice.pdf', format: 'A4', printBackground: true })
         await browser.close();
-        fs.rename('invoices/invoice.pdf', `invoices/${invoice_no}.pdf`, (error) => {
-            if (error) {
+        // fs.rename('invoices/invoice.pdf', `invoices/${invoice_no}.pdf`, (error) => {
+        //     if (error) {
 
-                // Show the error 
-                console.log(error);
-            }
-        });
+        //         // Show the error 
+        //         console.log(error);
+        //     }
+        // });
         console.log("PDF Generated")
         // return { status: true, message: "pdf Created", };
         data.status = true;
