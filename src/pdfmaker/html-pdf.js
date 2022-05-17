@@ -38,10 +38,13 @@ async function generatePdf(invoice_no) {
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         const page = await browser.newPage()
+        
         // We set the page content as the generatede html by handlebars
-        await page.setContent(html)
+        let content_log = await page.setContent(html)
+        console.log(content_log,'html  content logs');
         // We use pdf function to generate the pdf in the same folder as this file.
-        await page.pdf({ path: `invoices/invoice.pdf`, format: 'A4', printBackground: true })
+        let pdf_log = await page.pdf({ path: `invoices/invoice.pdf`, format: 'A4', printBackground: true })
+        console.log(pdf_log,'pdf creation logs');
         await browser.close();
         fs.rename('invoices/invoice.pdf', `invoices/${invoice_no}.pdf`, (error) => {
             if (error) {
