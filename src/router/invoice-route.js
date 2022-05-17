@@ -53,7 +53,7 @@ router.get('/read', (req, res, next) => {
 
 router.get('/read/:invoice_no', (req, res, next) => {
     var invoice_no = req.params.invoice_no;
-    var data = fs.readFileSync(`D:/client_point_deployment/client-management-system-APIs/invoices/${invoice_no}.pdf`);
+    var data = fs.readFileSync(`app/invoices/219.pdf`);
     // var data = fs.readFileSync(`E:/client management/api/invoices/${invoice_no}.pdf`);
     res.contentType("application/pdf");
     res.send(data);
@@ -114,7 +114,7 @@ router.put('/update', (req, res, next) => {
                         res.status(200).json({
                             message: "invoice genrated",
                             status: true,
-                            link: `http://192.168.29.153:8000/invoice/read/${invoice_no}`
+                            link: `https://clientpoint.herokuapp.com/invoice/read/${invoice_no}`
                         })
                     }
 
