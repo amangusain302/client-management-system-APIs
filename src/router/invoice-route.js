@@ -53,6 +53,7 @@ router.get('/read', (req, res, next) => {
 
 router.get('/read/:invoice_no', (req, res, next) => {
     var invoice_no = req.params.invoice_no;
+    console.log(`invoices/${invoice_no}.pdf`);
     var data = fs.readFileSync(`invoices/${invoice_no}.pdf`);
     // var data = fs.readFileSync(`E:/client management/api/invoices/${invoice_no}.pdf`);
     res.contentType("application/pdf");
