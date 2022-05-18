@@ -199,7 +199,7 @@
     //     response
     // } = require("express");
 
-    fetch('http://localhost:8000/invoice/read')
+    fetch('https://clientpoint.herokuapp.com/invoice/read')
         .then((response) => response.json())
         .then((data) => {
             console.log(data[0]);
