@@ -80,57 +80,73 @@ router.get('/read/:invoice_no', (req, res, next) => {
 //         })
 // })
 
-router.put('/update', (req, res, next) => {
-    console.log('pwd', JSON.stringify(process.env, null, 2));
-    var total = 0;
-    req.body.items.forEach(item => {
-        total = total + parseInt(item.total_price);
-    });
-
-
-    var invoice_no
-    var invoice_data = () => {
-        return Invoice.find({});
-    }
-    invoice_data().then(invoiceRes => {
-        var invoiceNo = invoiceRes[0].invoice_no;
-        invoice_no = invoiceNo + 1;
-        console.log(invoice_no, "increament");
-
-
-        console.log(invoice_no, "final output");
-        Invoice.findOneAndUpdate({}, {
-                $set: {
-                    invoice_no: invoice_no,
-                    due_date: req.body.due_date,
-                    bill_to: req.body.bill_to,
-                    items: req.body.items,
-                    sub_total: total
-                }
+router.put('/update', (req, response, next) => {
+    console.log(req.body);
+    generatePdf(req.body, 123).then((result) => {
+        console.log(result);
+        if (result.status) {
+            // console.log(result)
+            response.status(200).json({
+                message: "invoice genrated",
+                status: true,
+                link: `https://clientpoint.herokuapp.com/invoice/read/${result.invoice_no}`
             })
-            .then(result => {
-                console.log(result);
-                generatePdf(invoice_no).then((response) => {
-                    // console.log(response);
-                    if (response.status) {
-                        // console.log(result)
-                        res.status(200).json({
-                            message: "invoice genrated",
-                            status: true,
-                            link: `https://clientpoint.herokuapp.com/invoice/read/${invoice_no}`
-                        })
-                    }
+        }
+    }).catch(err => {
+        console.log(`generate PDF catch ${err}`)
+    })
+    // var total = 0;
+    // req.body.items.forEach(item => {
+    //     total = total + parseInt(item.total_price);
+    // });
 
-                }).catch(err => console.log(err, "pdf error"))
-            })
-            .catch(err => {
-                res.status(500).json({
-                    message: "invoice not created",
-                    status: false,
-                    error: err
-                })
-            })
-    });
+
+    // var invoice_no
+    // var invoice_data = () => {
+    //     return Invoice.find({});
+    // }
+    // invoice_data().then(invoiceRes => {
+    //     var invoiceNo = invoiceRes[0].invoice_no;
+    //     invoice_no = invoiceNo + 1;
+    //     console.log(invoice_no, "increament");
+
+
+    //     console.log(invoice_no, "final output");
+    //     Invoice.findOneAndUpdate({}, {
+    //             $set: {
+    //                 invoice_no: invoice_no,
+    //                 due_date: req.body.due_date,
+    //                 bill_to: req.body.bill_to,
+    //                 items: req.body.items,
+    //                 sub_total: total
+    //             }
+    //         })
+    //         .then(result => {
+    //             console.log(result);
+    //             generatePdf(result,invoice_no).then((response) => {
+    //                 // console.log(response);
+    //                 if (response.status) {
+    //                     // console.log(result)
+    //                     res.status(200).json({
+    //                         message: "invoice genrated",
+    //                         status: true,
+    //                         link: `https://clientpoint.herokuapp.com/invoice/read/${invoice_no}`
+    //                     })
+    //                 }
+
+    //             }).catch(err => console.log(err, "pdf error"))
+    //         })
+    //         .catch(err => {
+    //             res.status(500).json({
+    //                 message: "invoice not created",
+    //                 status: false,
+    //                 error: err
+    //             })
+    //         })
+    // });
+
+
+
 })
 
 module.exports = router;
