@@ -199,7 +199,7 @@
     //     response
     // } = require("express");
      
-    window.onloadstart = fetch('https://clientpoint.herokuapp.com/invoice/read')
+    window.onload = fetch('https://clientpoint.herokuapp.com/invoice/read')
         .then((response) => response.json())
         .then((data) => {
             console.log(data[0]);
@@ -234,7 +234,7 @@
 
 
         })
-        .catch((error) => document.write("Can't fetch data"));
+        .catch((error) => document.write(error));
 </script>
 
 </html>

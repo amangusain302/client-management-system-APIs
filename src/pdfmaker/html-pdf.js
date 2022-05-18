@@ -41,14 +41,11 @@ async function generatePdf(invoice_no) {
 
         // We set the page content as the generatede html by handlebars
         let content_log = await page.setContent(html)
-        console.log(content_log, 'html  content logs');
+        console.log(content_log,'html  content logs');
         // We use pdf function to generate the pdf in the same folder as this file.
-        setTimeout( async() => {
-            let pdf_log = await page.pdf({ path: `invoices/invoice.pdf`, format: 'A4', printBackground: true })
-            console.log(pdf_log, 'pdf creation logs');
-        },5000)
-
-
+        
+        let pdf_log = await page.pdf({ path: `invoices/invoice.pdf`, format: 'A4', printBackground: true })
+        console.log(pdf_log,'pdf creation logs');
         await browser.close();
         fs.rename('invoices/invoice.pdf', `invoices/${invoice_no}.pdf`, (error) => {
             if (error) {
@@ -58,10 +55,11 @@ async function generatePdf(invoice_no) {
             }
         });
         console.log("PDF Generated")
-        console.log(pdf_log, 'pdf creation logs');
-        // return { status: true, message: "pdf Created", };
+        // console.log(pdf_log,'pdf creation logs');
         data.status = true;
         data.message = "created";
+        return { status: true, message: "pdf Created", };
+        
     }).catch(err => {
         console.error(err)
     });
