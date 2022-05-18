@@ -43,7 +43,7 @@ async function generatePdf(invoice_no) {
         let content_log = await page.setContent(html)
         console.log(content_log, 'html  content logs');
         // We use pdf function to generate the pdf in the same folder as this file.
-        setTimeout(() => {
+        setTimeout( async() => {
             let pdf_log = await page.pdf({ path: `invoices/invoice.pdf`, format: 'A4', printBackground: true })
             console.log(pdf_log, 'pdf creation logs');
         },5000)
