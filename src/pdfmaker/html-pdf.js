@@ -11,7 +11,7 @@ const readFile = utils.promisify(fs.readFile)
 async function getTemplateHtml() {
     console.log("Loading template file in memory")
     try {
-        const invoicePath = path.resolve("./src/pdfmaker/invoice.html");
+        const invoicePath = path.resolve("./src/pdfmaker/invoice12.html");
         return await readFile(invoicePath, 'utf8');
     } catch (err) {
         return Promise.reject(err);
