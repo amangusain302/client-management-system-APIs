@@ -102,7 +102,7 @@
     </style>
 </head>
 
-<body>
+<body onload="fetchData()">
     <div class="invoice-box">
         <table class="data" cellpadding="0" cellspacing="0">
             <tr class="top">
@@ -198,8 +198,8 @@
     // const {
     //     response
     // } = require("express");
-
-    fetch('https://clientpoint.herokuapp.com/invoice/read')
+     
+    window.onloadstart = fetch('https://clientpoint.herokuapp.com/invoice/read')
         .then((response) => response.json())
         .then((data) => {
             console.log(data[0]);
