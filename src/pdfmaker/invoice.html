@@ -195,12 +195,14 @@
                     <div class="sub-flex">
                         <div>Invoice Number</div>
                         <div>Invoice Date</div>
-                        <div>Project</div>
+                        <div>Due Date</div>
+                        <!-- <div>Order Number</div> -->
                     </div>
                     <div class="sub-flex1">
                         <div>203</div>
                         <div>9/05/2022</div>
                         <div>A233DHUJDH</div>
+                        <!-- <div>A233DHUJDH</div> -->
                     </div>
                 </div>
             </div>
@@ -441,6 +443,61 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // let data = [
+        //     ['USB_TC', '$60'],
+        //     ['TABLE', '$40'],
+        //     ['Phone', '$100']
+        // ];
+        // document.getElementById("item-0").innerHTML = data[0][0];
+        // document.getElementById("item-1").innerHTML = data[1][0];
+        // document.getElementById("item-2").innerHTML = data[2][0];
+    
+        // document.getElementById("price-0").innerHTML = data[0][1];
+        // document.getElementById("price-1").innerHTML = data[1][1];
+        // document.getElementById("price-2").innerHTML = data[2][1];
+        // const {
+        //     response
+        // } = require("express");
+    
+        fetch('http://localhost:8000/invoice/read')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data[0]);
+                const bill = data[0].bill_to;
+                const total = data[0].sub_total;
+                const createDate = data[0].created_date;
+                const dueDate = data[0].due_date;
+                const invoiceNo = data[0].invoice_no;
+                console.log(data[0].invoice_no);
+    
+    
+                document.getElementById("billto").innerHTML = `${bill[0].name}<br>${bill[0].contact}<br>${bill[0].address}`;
+                document.getElementById("total").innerHTML = `Total: $${total} `;
+                document.getElementById("invoice_data").innerHTML = `Invoice #: ${invoiceNo}<br>Created: ${new Date(createDate).toDateString()}<br>Due: ${new Date(dueDate).toDateString()}`;
+                // console.log(billTo);
+                let items = data[0].items;
+                // console.log(items)
+                var result = "";
+                items.map((item) => {
+                    // console.log(item);
+    
+                    result = result + `<tr class="item">
+                            <td id="item-0">${item.description}</td>
+                             <td class="price-0">$${item.total_price}</td>
+                        </tr>`
+                })
+    
+                console.log(result);
+                // document.getElementById('apiData').insertAdjacentHTML("apiData", result);
+                // console.log();
+                document.getElementsByClassName('heading')[1].insertAdjacentHTML("afterend", result);
+    
+    
+            })
+            .catch((error) => document.write("Can't fetch data"));
+    </script>
 
 
 </body>

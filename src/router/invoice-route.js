@@ -53,8 +53,8 @@ router.get('/read', (req, res, next) => {
 
 router.get('/read/:invoice_no', (req, res, next) => {
     var invoice_no = req.params.invoice_no;
-    console.log(`invoices/${invoice_no}.pdf`);
-    console.log('pwd', JSON.stringify(process.env, null, 2));
+    // console.log(`invoices/${invoice_no}.pdf`);
+    // console.log('pwd', JSON.stringify(process.env, null, 2));
     var data = fs.readFileSync(`invoices/${invoice_no}.pdf`);
     // var data = fs.readFileSync(`E:/client management/api/invoices/${invoice_no}.pdf`);
     res.contentType("application/pdf");
@@ -83,22 +83,24 @@ router.get('/read/:invoice_no', (req, res, next) => {
 router.put('/update', (req, response, next) => {
     console.log(req.body);
     generatePdf(req.body, 123).then((result) => {
-        console.log(result);
-        if (result.status) {
-            // console.log(result)
-            response.status(200).json({
-                message: "invoice genrated",
-                status: true,
-                link: `https://clientpoint.herokuapp.com/invoice/read/${result.invoice_no}`
-            })
-        }
-    }).catch(err => {
-        console.log(`generate PDF catch ${err}`)
-    })
-    // var total = 0;
-    // req.body.items.forEach(item => {
-    //     total = total + parseInt(item.total_price);
-    // });
+            console.log(result);
+            if (result.status) {
+                // console.log(result)
+                response.status(200).json({
+                    message: "invoice genrated",
+                    status: true,
+                    // link: `https://clientpoint.herokuapp.com/invoice/read/${result.invoice_no}`
+                    link: `http://localhost:5000/invoice/read/${result.invoice_no}`
+
+                })
+            }
+        }).catch(err => {
+            console.log(`generate PDF catch ${err}`)
+        })
+        // var total = 0;
+        // req.body.items.forEach(item => {
+        //     total = total + parseInt(item.total_price);
+        // });
 
 
     // var invoice_no

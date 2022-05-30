@@ -1,5 +1,5 @@
-
 const invoiceTemplate = (data, invoice_no) => {
+
     let total_price = 0;
     let template = `
     <!DOCTYPE html>
@@ -195,15 +195,15 @@ const invoiceTemplate = (data, invoice_no) => {
                     <div class="detail-flex">
                         <div class="sub-flex">
                             <div>Invoice Number</div>
-                            <div>203</div>
+                            <div>${data['invoice_no']}</div>
                         </div>
                         <div class="sub-flex">
                             <div>Invoice Date</div>
-                            <div>9/05/2022</div>
+                            <div>${data['due_date']}</div>
                         </div>
                         <div class="sub-flex">
-                            <div>Project</div>
-                            <div>A233DHUJDH</div>
+                            <div>Order No.</div>
+                            <div>${data['order_no']}</div>
                         </div>
                     </div>
                 </div>
@@ -237,22 +237,21 @@ const invoiceTemplate = (data, invoice_no) => {
                             TOTAL
                         </th>
                     </tr>
-
                     <tr class="set-td">
                         <td>
-                            Item 1
+                            ${data['items'][0]['item_name']}
                         </td>
                         <td>
-                            good & service
+                        ${data['items'][0]['description']}
                         </td>
                         <td>
-                            1201
+                        ${data['items'][0]['unitprice']}
                         </td>
                         <td>
-                            1
+                        ${data['items'][0]['quantity']}
                         </td>
                         <td>
-                            1201
+                        ${data['items'][0]['total_price']}
                         </td>
                     </tr>
                     <tr class="set-td">
@@ -380,7 +379,7 @@ const invoiceTemplate = (data, invoice_no) => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><strong style="color: white;">$1201</strong></td>
+                        <td><strong style="color: white;">$${data['sub_total']}</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -390,16 +389,20 @@ const invoiceTemplate = (data, invoice_no) => {
 
                     <strong>
                         Name:- &nbsp;&nbsp;&nbsp;
-                        </stong>XYZ<br>
+                        </stong>${data['bill_to']['name']}<br>
                         <strong>
                             Address:-
-                            </stong>Noida, Uttar pardesh, India
+                            </stong>${data['bill_to']['address']}
+                                <br>
+                                <strong>
+                            Contact:-
+                            </stong>${data['bill_to']['contact']}
                 </div>
                 <div>
                     <table class="tab-2">
                         <tr>
-                            <td>Sales Tax (8.25%)</td>
-                            <td>$1300</td>
+                            <td>${data['tax_name']} (${data['tax_rate']}%)</td>
+                            <td>$${data['tax_amount']}</td>
 
                         </tr>
                         <br />
@@ -409,7 +412,7 @@ const invoiceTemplate = (data, invoice_no) => {
                                 GRAND TOTAL
                             </th>
                             <th>
-                                $1300
+                            ${data['grand_total']}
                             </th>
                         </tr>
                     </table>
