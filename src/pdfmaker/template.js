@@ -1,7 +1,7 @@
 const invoiceTemplate = (data, invoice_no) => {
 
-    let total_price = 0;
-    let template = `
+        let total_price = 0;
+        let template = `
     <!DOCTYPE html>
 <html lang="en">
 
@@ -195,22 +195,25 @@ const invoiceTemplate = (data, invoice_no) => {
                     <div class="detail-flex">
                         <div class="sub-flex">
                             <div>Invoice Number</div>
-                            <div>${data['invoice_no']}</div>
+                            <div>${data['invoiceNumber']}</div>
                         </div>
                         <div class="sub-flex">
                             <div>Invoice Date</div>
-                            <div>${data['due_date']}</div>
+                            <div>${data['dueDate']}</div>
                         </div>
                         <div class="sub-flex">
                             <div>Order No.</div>
-                            <div>${data['order_no']}</div>
+                            <div>${data['oderNumber']}</div>
+                        </div>
+                        <div class="sub-flex">
+                            <div>Invoice Date</div>
+                            <div>${data['invoiceDate']}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="set-table">
-
 
             <table class="set-tab">
                 <div class="table-head">
@@ -237,144 +240,31 @@ const invoiceTemplate = (data, invoice_no) => {
                             TOTAL
                         </th>
                     </tr>
-                    <tr class="set-td">
-                        <td>
-                            ${data['items'][0]['item_name']}
-                        </td>
-                        <td>
-                        ${data['items'][0]['description']}
-                        </td>
-                        <td>
-                        ${data['items'][0]['unitprice']}
-                        </td>
-                        <td>
-                        ${data['items'][0]['quantity']}
-                        </td>
-                        <td>
-                        ${data['items'][0]['total_price']}
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-                    <tr class="set-td">
-                        <td>
-                            Item 1
-                        </td>
-                        <td>
-                            good & service
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1201
-                        </td>
-                    </tr>
-
-                    <tr class="last-tr" bgcolor="#2C89C7">
+                    ${
+                        data['items'].map((item)=>{
+                            return `
+                            <tr class="set-td">
+                                        <td>
+                                            ${item['name']}
+                                        </td>
+                                        <td>
+                                        ${item['description']}
+                                        </td>
+                                        <td>
+                                        ${item['price']}
+                                        </td>
+                                        <td>
+                                        ${item['Qty']}
+                                        </td>
+                                        <td>
+                                        ${item['amount']}
+                                        </td>
+                                    </tr>
+                            `
+                        })
+                    }
+                    
+    <tr class="last-tr" bgcolor="#2C89C7">
                         <td><strong style="color: white;">SUB TOTAL </strong></td>
                         <td></td>
                         <td></td>
@@ -389,19 +279,24 @@ const invoiceTemplate = (data, invoice_no) => {
 
                     <strong>
                         Name:- &nbsp;&nbsp;&nbsp;
-                        </stong>${data['bill_to']['name']}<br>
+                        </stong>${data['bill_to']['UserName']}<br>
                         <strong>
                             Address:-
-                            </stong>${data['bill_to']['address']}
+                            </stong>${data['bill_to']['UserAdd']}
                                 <br>
                                 <strong>
                             Contact:-
-                            </stong>${data['bill_to']['contact']}
+                            </stong>${data['bill_to']['UserContact']}
                 </div>
                 <div>
                     <table class="tab-2">
+                    <tr>
+                            <td>Discount (${data['discount_in_per']}%)</td>
+                            <td>$${data['discounts']}</td>
+
+                        </tr>
                         <tr>
-                            <td>${data['tax_name']} (${data['tax_rate']}%)</td>
+                            <td>${data['userName']} (${data['TaxRate']}%)</td>
                             <td>$${data['tax_amount']}</td>
 
                         </tr>
@@ -454,6 +349,8 @@ const invoiceTemplate = (data, invoice_no) => {
 
 </html>
     `;
+
+    // console.log(data.items);
     return template;
 }
 module.exports = invoiceTemplate;
