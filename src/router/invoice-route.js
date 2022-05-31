@@ -89,8 +89,8 @@ router.put('/update', (req, response, next) => {
                 response.status(200).json({
                     message: "invoice genrated",
                     status: true,
-                    // link: `https://clientpoint.herokuapp.com/invoice/read/${result.invoice_no}`
-                    link: `http://localhost:5000/invoice/read/${result.invoice_no}`
+                    link: `https://clientpoint.herokuapp.com/invoice/read/${result.invoiceNumber}`
+                        // link: `http://localhost:5000/invoice/read/${req.body.invoiceNumber}`
 
                 })
             }

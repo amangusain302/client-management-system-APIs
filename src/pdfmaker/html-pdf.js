@@ -33,14 +33,14 @@ async function generatePdf(data, invoice_no) {
     console.log(pdf_log);
     await browser.close();
     console.log("PDF generated");
-    fs.rename('invoices/invoice.pdf', `invoices/${invoice_no}.pdf`, (error) => {
+    fs.rename('invoices/invoice.pdf', `invoices/${data.invoiceNumber}.pdf`, (error) => {
         if (error) {
 
             // Show the error 
             console.log(error);
         }
     });
-    return { status: true, message: "pdf Created", invoice_no : invoice_no };
+    return { status: true, message: "pdf Created", invoice_no: invoice_no };
     // await getTemplateHtml().then(async (res) => {
     //     // Now we have the html code of our template in res object
     //     // you can check by logging it on console
