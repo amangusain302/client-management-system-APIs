@@ -100,12 +100,12 @@ const emailNodemailer = async(to, subject, id) => {
         secure: false,
         requireTLS: true,
         auth: {
-            user: "gamingera786@gmail.com",
-            pass: "ulyzgvnshdigtukl"
+            user: "email",
+            pass: "password"
         }
     });
     var mailOptions = {
-        from: 'gamingera786@gmail.com',
+        from: 'emails',
         to: to,
         subject: subject,
         html: `<h1>demo data<h1><a href="https://client-point.herokuapp.com/client/${id}"> click here</a>`
