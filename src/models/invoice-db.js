@@ -16,16 +16,16 @@ const InvoiceModel = new mongoose.Schema({
     created_date: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now()
     },
     bill_to: [{
         name: {
             type: String,
-            // required: true
+            required: true
         },
         contact: {
             type: Number,
-            // required: true
+            required: true
         },
         address: {
             type: String,
